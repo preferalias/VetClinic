@@ -1,5 +1,4 @@
-﻿
-Imports System.Data.SqlClient
+﻿Imports System.Data.SqlClient
 
 Public Class VetManager
 
@@ -105,6 +104,43 @@ Public Class VetManager
             ctx.SubmitChanges()
         End Using
     End Sub
+
+    Public Function ImportOPDfile(ByVal fileStream As IO.Stream) As String
+        Dim errMsg As String = String.Empty
+        Dim p As New OfficeOpenXml.ExcelPackage
+        p.Load(fileStream)
+        Dim sheet = p.Workbook.Worksheets.First
+        Dim row = 2
+        While True
+            Dim newOpd As New OPD
+            Dim hasData As Boolean = False
+            For col = 1 To 12
+                If sheet.Cells(row, col).Value IsNot Nothing Then
+                    hasData = True
+                    Exit For
+                End If
+            Next
+            If hasData Then
+                With sheet
+                    newOpd.opd_num = .Cells(row, 1).Value
+                    newOpd.pet_name = .Cells(row, 2).Value
+                    newOpd.pet_type = .Cells(row, 3).Value
+                    newOpd.pet_sex = .Cells(row, 4).Value
+                    newOpd.pet_breed = .Cells(row, 5).Value
+                    newOpd.pet_age = If(.Cells(row, 7).Value Is Nothing, 0, CInt(Math.Floor(.Cells(row, 7).Value) \ 1))
+                    newOpd.pet_age_month = If(.Cells(row, 7).Value Is Nothing, 0, CInt(Math.Floor(.Cells(row, 7).Value) Mod 1))
+                    newOpd.holder_name = .Cells(row, 8).Value & " " & .Cells(row, 9).Value
+                    newOpd.contact = .Cells(row, 10).Value.ToString.Replace("-", Nothing)
+                    newOpd.address = .Cells(row, 11).Value & " " & .Cells(row, 12).Value
+                End With
+            Else
+                Exit While
+            End If
+            row += 1
+        End While
+        Return errMsg
+    End Function
+
 #End Region
 
 #Region "OPD Detail"

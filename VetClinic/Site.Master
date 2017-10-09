@@ -55,6 +55,7 @@
                                 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a runat="server" href="~/AddData">OPD</a></li>
+                                <li><a runat="server" href="~/Upload">Upload</a></li>
                                <%-- <li><a runat="server" href="~/Appointment">Appointment</a></li>--%>
                             </ul> 
                         </li>
