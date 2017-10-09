@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="vet-db" Class="VetDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-7BTD08S\SQLEXPRESS;Initial Catalog=vet-db;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="vet_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.OPD" Member="OPDs">
+    <Type Name="OPD">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="opd_num" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="pet_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pet_age" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pet_age_month" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pet_sex" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pet_breed" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="pet_type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="holder_name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="OPD_OPD_Detail" Member="OPD_Details" ThisKey="id" OtherKey="opd_id" Type="OPD_Detail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OPD_Detail" Member="OPD_Details">
+    <Type Name="OPD_Detail">
+      <Column Name="opd_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="opd_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="opd_details" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_bw" Type="System.Double" DbType="Float" CanBeNull="true"/>
+      <Column Name="opd_lab" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_fee2" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="opd_fee" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="detail_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="OPD_OPD_Detail" Member="OPD" ThisKey="opd_id" OtherKey="id" Type="OPD" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
