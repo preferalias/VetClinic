@@ -91,6 +91,7 @@ Public Class VetManager
         Using ctx = NewDataContext()
             Dim origOPD As OPD = (From r In ctx.OPDs Where r.id = newOPD.id).Single
             With origOPD
+                .opd_num = newOPD.opd_num
                 .pet_age = newOPD.pet_age
                 .pet_age_month = newOPD.pet_age_month
                 .pet_breed = newOPD.pet_breed

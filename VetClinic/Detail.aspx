@@ -27,6 +27,14 @@
                 return false;
             return true;
         }
+
+        function isNumberKeyDecimal(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
     </script>
     <dx:ASPxTextBox runat="server" ID="hdn_id" ClientVisible="false"></dx:ASPxTextBox>
     <div class="row" style="padding-top:20px;">
@@ -41,6 +49,12 @@
     <div class="form-horizontal" style="padding-top:20px;">
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="opd_num">OPD Number</label>
+                    <div class="col-sm-2">
+                        <input readonly="readonly" onkeypress="return isNumberKey(event)" runat="server" type="text" class="form-control" id="opd_num" placeholder="OPD Number" name="opd_num" />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="name">ชื่อสัตว์เลี้ยง</label>
                     <div class="col-sm-2">
@@ -104,17 +118,18 @@
                         <dx:BootstrapButton runat="server" ID="btn_edit" Text="Edit" AutoPostBack="false">
                             <ClientSideEvents Click="editForm" />
                         </dx:BootstrapButton>
-                        <dx:BootstrapButton ClientVisible="false" runat="server" ID="btn_update" Text="Confirm">
-
+                        <dx:BootstrapButton ClientVisible="false" runat="server" ID="btn_update" Text="Confirm" AutoPostBack="true">
+                           <%-- <ClientSideEvents Click="function(s,e){gv_OPD.PerformCallback();}"/>--%>
                         </dx:BootstrapButton>
-                        <dx:BootstrapButton ClientVisible="false" runat="server" ID="btn_cancel" Text="Cancel" AutoPostBack="true">
+                        <dx:BootstrapButton ClientVisible="false" runat="server" ID="btn_cancel" Text="Cancel" AutoPostBack="false">
                             <ClientSideEvents Click="cancelForm" />
                         </dx:BootstrapButton>
                     </div>
                 </div>
             </ContentTemplate>
             <Triggers>
-                <asp:PostBackTrigger ControlID="btn_update" />
+                <%--<asp:PostBackTrigger ControlID="btn_update" />--%>
+                <asp:AsyncPostBackTrigger ControlID="btn_update" />
             </Triggers>
         </asp:UpdatePanel>
         <hr />
@@ -123,20 +138,22 @@
             <div class="col-sm-12">
                 <dx:BootstrapGridView ID="gv_OPD" ClientInstanceName="gv_OPD" runat="server" KeyFieldName="detail_id" DataSourceID="ods_detail" EnableCallBacks="true">
                     <SettingsBehavior AllowSelectSingleRowOnly="true" AllowSelectByRowClick="true" ConfirmDelete="True" />
-                    <SettingsEditing Mode="Inline"></SettingsEditing>
+                    <SettingsEditing Mode="PopupEditForm"></SettingsEditing>
+                    <SettingsPopup EditForm-HorizontalAlign="Center" EditForm-VerticalAlign="WindowCenter"
+                                EditForm-Height="460px" EditForm-Width="800px" ></SettingsPopup>
                     <SettingsDataSecurity AllowEdit="true" AllowDelete="true"  />
                     <Columns>
-                       <dx:BootstrapGridViewDataTextColumn Caption="OPD" FieldName="opd_num"/>
+                        <dx:BootstrapGridViewDataColumn Caption="OPD" FieldName="opd_num"/>
                         <dx:BootstrapGridViewDataComboBoxColumn Caption="Type" FieldName="opd_type">
                             <PropertiesComboBox  DropDownStyle="DropDown">
                         </PropertiesComboBox>
                         </dx:BootstrapGridViewDataComboBoxColumn>
                         <dx:BootstrapGridViewDataDateColumn Caption="Date" FieldName="opd_date" />
-                        <dx:BootstrapGridViewDataMemoColumn Caption="CC" FieldName="opd_details"/>
+                        <dx:BootstrapGridViewDataMemoColumn PropertiesMemoEdit-Rows="4" Caption="CC" FieldName="opd_details"/>
                         <dx:BootstrapGridViewDataTextColumn Caption="BW(Kg)" FieldName="opd_bw" />
-                        <dx:BootstrapGridViewDataMemoColumn Caption="PE + Lab" FieldName="opd_lab"/>
-                        <dx:BootstrapGridViewDataMemoColumn Caption="Tx" FieldName="opd_fee"/>
-                        <dx:BootstrapGridViewDataMemoColumn Caption="Rx" FieldName="opd_fee2" />
+                        <dx:BootstrapGridViewDataMemoColumn PropertiesMemoEdit-Rows="4" Caption="PE + Lab" FieldName="opd_lab"/>
+                        <dx:BootstrapGridViewDataMemoColumn PropertiesMemoEdit-Rows="4" Caption="Tx" FieldName="opd_fee"/>
+                        <dx:BootstrapGridViewDataMemoColumn PropertiesMemoEdit-Rows="4" Caption="Rx" FieldName="opd_fee2" />
                         <dx:BootstrapGridViewDataTextColumn Caption="Fee" FieldName="opd_amount"/>
                         <dx:BootstrapGridViewCommandColumn ShowDeleteButton="True" ShowEditButton="True" >
                         </dx:BootstrapGridViewCommandColumn>

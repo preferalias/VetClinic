@@ -27,6 +27,7 @@ Public Class Detail
     Public Sub UpdateLabelGeneral()
         Dim opd As OPD = vetMgr.GetOPDbyID(SelectedID)
         With opd
+            opd_num.Value = opd.opd_num
             petName.Value = opd.pet_name
             pet_Type.Value = opd.pet_type
             sex.Value = opd.pet_sex
@@ -97,7 +98,14 @@ Public Class Detail
             End If
         End If
         If (e.Column.FieldName = "opd_num") Then
-            e.Editor.Visible = False
+            e.Editor.Visible = True
+            e.Editor.Attributes.Add("readonly", "readonly")
+        End If
+        If e.Column.FieldName = "opd_bw" Then
+            e.Editor.Attributes.Add("onkeypress", "return isNumberKeyDecimal(event)")
+        End If
+        If e.Column.FieldName = "opd_amount" Then
+            e.Editor.Attributes.Add("onkeypress", "return isNumberKey(event)")
         End If
     End Sub
 
@@ -110,6 +118,7 @@ Public Class Detail
                 Throw New Exception
             End If
             With newOPD
+                .opd_num = opd_num.Value
                 .id = SelectedID
                 .pet_name = petName.Value
                 .pet_type = pet_Type.Value
@@ -123,10 +132,11 @@ Public Class Detail
                 '.pet_weight = weight.Value
             End With
             vetMgr.updateOPD(newOPD)
-            ClientScript.RegisterClientScriptBlock(Page.GetType, "Invalid Data", "<script type=""text/javascript"">alert('Success')</script>")
+            ClientScript.RegisterClientScriptBlock(Page.GetType, "Saved", "<script type=""text/javascript"">alert('Success')</script>")
             UpdateLabelGeneral()
         Catch ex As Exception
             ClientScript.RegisterClientScriptBlock(Page.GetType, "Invalid Data", "<script type=""text/javascript"">alert('" & errMsg & "')</script>")
         End Try
     End Sub
+
 End Class
