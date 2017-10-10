@@ -111,33 +111,54 @@ Public Class VetManager
         p.Load(fileStream)
         Dim sheet = p.Workbook.Worksheets.First
         Dim row = 2
-        While True
-            Dim newOpd As New OPD
-            Dim hasData As Boolean = False
-            For col = 1 To 12
-                If sheet.Cells(row, col).Value IsNot Nothing Then
-                    hasData = True
-                    Exit For
+        Using ctx = NewDataContext()
+            If ctx.Connection.State <> ConnectionState.Open Then ctx.Connection.Open()
+            Dim tx = ctx.Connection.BeginTransaction
+            ctx.Transaction = tx
+            While True
+                Dim newOpd As New OPD
+                Dim hasData As Boolean = False
+                For col = 1 To 12
+                    If sheet.Cells(row, col).Value IsNot Nothing Then
+                        hasData = True
+                        Exit For
+                    End If
+                Next
+                If hasData Then
+                    Try
+                        With sheet
+                            newOpd.opd_num = .Cells(row, 1).Value
+                            newOpd.pet_name = .Cells(row, 2).Value
+                            newOpd.pet_type = .Cells(row, 3).Value
+                            newOpd.pet_sex = .Cells(row, 4).Value
+                            newOpd.pet_breed = .Cells(row, 5).Value
+                            newOpd.pet_age = If(.Cells(row, 7).Value Is Nothing, 0, CInt(Math.Floor(.Cells(row, 7).Value) \ 1))
+                            newOpd.pet_age_month = If(.Cells(row, 7).Value Is Nothing, 0, CInt((Math.Floor(.Cells(row, 7).Value) Mod 1) * 100))
+                            newOpd.holder_name = .Cells(row, 8).Value & " " & .Cells(row, 9).Value
+                            newOpd.contact = If(.Cells(row, 10).Value Is Nothing, String.Empty, .Cells(row, 10).Value.ToString.Replace("-", Nothing))
+                            newOpd.address = .Cells(row, 11).Value & " " & .Cells(row, 12).Value
+                        End With
+                        Try
+                            newOpd.id = findNextID((From r In ctx.OPDs Select r.id).ToList)
+                            ctx.OPDs.InsertOnSubmit(newOpd)
+                            ctx.SubmitChanges()
+                        Catch ex As Exception
+                            errMsg &= "Sql Added error."
+                            Throw New Exception
+                        End Try
+                    Catch ex As Exception
+                        errMsg &= "Error at row " & row
+                        tx.Rollback()
+                        Return errMsg
+                    End Try
+                Else
+                    errMsg &= "Import sucess: " & row & " were added."
+                    Exit While
                 End If
-            Next
-            If hasData Then
-                With sheet
-                    newOpd.opd_num = .Cells(row, 1).Value
-                    newOpd.pet_name = .Cells(row, 2).Value
-                    newOpd.pet_type = .Cells(row, 3).Value
-                    newOpd.pet_sex = .Cells(row, 4).Value
-                    newOpd.pet_breed = .Cells(row, 5).Value
-                    newOpd.pet_age = If(.Cells(row, 7).Value Is Nothing, 0, CInt(Math.Floor(.Cells(row, 7).Value) \ 1))
-                    newOpd.pet_age_month = If(.Cells(row, 7).Value Is Nothing, 0, CInt(Math.Floor(.Cells(row, 7).Value) Mod 1))
-                    newOpd.holder_name = .Cells(row, 8).Value & " " & .Cells(row, 9).Value
-                    newOpd.contact = .Cells(row, 10).Value.ToString.Replace("-", Nothing)
-                    newOpd.address = .Cells(row, 11).Value & " " & .Cells(row, 12).Value
-                End With
-            Else
-                Exit While
-            End If
-            row += 1
-        End While
+                row += 1
+            End While
+            tx.Commit()
+        End Using
         Return errMsg
     End Function
 
