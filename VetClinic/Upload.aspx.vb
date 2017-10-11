@@ -9,7 +9,7 @@
     Private Sub btn_upload_Click(sender As Object, e As EventArgs) Handles btn_upload.Click
         If upload_opd.HasFile Then
             If upload_opd.PostedFile.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" Then
-                vetMgr.ImportOPDfile(upload_opd.FileContent)
+                lbl_upload_status.Text = vetMgr.ImportOPDfile(upload_opd.FileContent)
             Else
                 lbl_upload_status.Text = "Only accept file content .xlsx"
             End If

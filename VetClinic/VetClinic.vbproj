@@ -162,6 +162,7 @@
     <Content Include="AddData.aspx" />
     <Content Include="AppointDetail.aspx" />
     <Content Include="Appointment.aspx" />
+    <Content Include="BackUp.aspx" />
     <Content Include="Detail.aspx" />
     <Content Include="Upload.aspx" />
     <Content Include="Images\bg-login.jpg" />
@@ -250,6 +251,13 @@
     </Compile>
     <Compile Include="AddData.aspx.vb">
       <DependentUpon>AddData.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="BackUp.aspx.designer.vb">
+      <DependentUpon>BackUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackUp.aspx.vb">
+      <DependentUpon>BackUp.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Bussiness\VetDataContext.designer.vb">

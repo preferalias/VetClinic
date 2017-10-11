@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class Contact
     
     '''<summary>
+    '''opd_num control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents opd_num As Global.System.Web.UI.HtmlControls.HtmlInputText
+    
+    '''<summary>
     '''petName control.
     '''</summary>
     '''<remarks>

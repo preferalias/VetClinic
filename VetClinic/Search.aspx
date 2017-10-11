@@ -3,23 +3,36 @@
 <%@ Register Assembly="DevExpress.Web.Bootstrap.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.Bootstrap" TagPrefix="dx" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
     <h2>Search OPD</h2>
     <hr />
    <div class="form-horizontal" style="padding-top:20px;">
         <div class="form-group">
+            <label class="control-label col-sm-1" for="petType">OPD.</label>
+            <div class="col-sm-2">
+                <input runat="server" type="text" onkeypress="return isNumberKey(event)" class="form-control" id="opd_num" placeholder="Number" name="opd_num">
+            </div>
             <label class="control-label col-sm-1" for="petName">ชื่อสัตว์</label>
             <div class="col-sm-2">
                 <input runat="server" type="text" class="form-control" id="petName" placeholder="Pet Name" name="petName">
             </div>
             <label class="control-label col-sm-1" for="petType">ชนิด</label>
-            <div class="col-sm-2">
-                <input runat="server" type="text" class="form-control" id="petType" placeholder="Pet Type" name="petType">
+            <div class="col-sm-1">
+                <input runat="server" type="text" class="form-control" id="petType" placeholder="Type" name="petType">
             </div>
+
             <label class="control-label col-sm-1" for="holder_name">ชื่อเจ้าของ</label>
             <div class="col-sm-2">          
                 <input runat="server" type="text" class="form-control" id="holder_name" placeholder="Holder Name" name="holder_name">
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-1">
                 <dx:BootstrapButton runat="server" ID="btnbt_Search" AutoPostBack="false" 
                     Text="Search" CssClasses-Button="pull-right btn btn-default">
                     <ClientSideEvents Click="function(s,e){gv_OPD.PerformCallback();}" />

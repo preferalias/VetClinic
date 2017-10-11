@@ -29,6 +29,4 @@
             </div>         
         </div>
     </div>
-    <hr />
-    <label>Recently Uploaded OPD</label>
 </asp:Content>

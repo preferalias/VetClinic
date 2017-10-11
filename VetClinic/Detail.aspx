@@ -39,8 +39,8 @@
     <dx:ASPxTextBox runat="server" ID="hdn_id" ClientVisible="false"></dx:ASPxTextBox>
     <div class="row" style="padding-top:20px;">
         <div class="col-sm-2">
-            <a href="Search.aspx" class="btn btn-default">
-                <span class="glyphicon glyphicon-arrow-left"></span>  Back to search
+            <a href="Management.aspx" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span>  Back to Editing
             </a>
         </div>
     </div>
