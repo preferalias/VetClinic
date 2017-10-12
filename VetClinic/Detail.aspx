@@ -158,6 +158,7 @@
                         <dx:BootstrapGridViewCommandColumn ShowDeleteButton="True" ShowEditButton="True" >
                         </dx:BootstrapGridViewCommandColumn>
                     </Columns>
+                    <ClientSideEvents Init="onInitEdit2" EndCallback="onInitEdit2" />
                 </dx:BootstrapGridView>
                 <asp:ObjectDataSource ID="ods_detail" runat="server" TypeName="VetClinic.VetManager"
                     SelectMethod="GetDetail"></asp:ObjectDataSource>

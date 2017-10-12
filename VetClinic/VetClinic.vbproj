@@ -164,6 +164,7 @@
     <Content Include="Appointment.aspx" />
     <Content Include="BackUp.aspx" />
     <Content Include="Detail.aspx" />
+    <Content Include="Scripts\CustomScript.js" />
     <Content Include="Upload.aspx" />
     <Content Include="Images\bg-login.jpg" />
     <Content Include="Images\favi.ico.png" />

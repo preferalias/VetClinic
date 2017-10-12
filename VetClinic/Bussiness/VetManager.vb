@@ -50,11 +50,12 @@ Public Class VetManager
         Return opds
     End Function
 
-    Public Function GetOPD(ByVal opdNum As Integer, ByVal petName As String, ByVal type As String, ByVal holderName As String) As IEnumerable
+    Public Function GetOPD(ByVal opdNum As Integer, ByVal petName As String, ByVal type As String, ByVal holderName As String, ByVal contact As String) As IEnumerable
         Dim opds As New List(Of OPD)
         Using ctx = NewDataContext()
             opds = (From r In ctx.OPDs Where (r.opd_num = opdNum OrElse opdNum = 0) AndAlso (r.pet_name.Contains(petName) OrElse String.IsNullOrEmpty(petName)) _
                                            AndAlso (r.pet_type.Contains(type) OrElse String.IsNullOrEmpty(type)) _
+                                           AndAlso (r.contact.Contains(contact) OrElse String.IsNullOrEmpty(contact)) _
                                            AndAlso (r.holder_name.Contains(holderName) OrElse String.IsNullOrEmpty(holderName)) Order By r.id Descending).ToList
         End Using
         Return opds

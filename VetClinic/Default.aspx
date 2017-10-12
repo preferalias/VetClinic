@@ -64,10 +64,12 @@
                            <dx:BootstrapGridViewDataTextColumn Caption="Contact" FieldName="contact"/>
                            <dx:BootstrapGridViewDataColumn Caption="Add Appointment">
                                <DataItemTemplate>
-                                    <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_detail" runat="server" Text="Add" AutoPostBack="false" ToolTip="View Detail" />
+                                    <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_detail" runat="server" Text="Add/View" AutoPostBack="false" ToolTip="View Detail" />
                                </DataItemTemplate>
                             </dx:BootstrapGridViewDataColumn>
+                           
                        </Columns>
+                       <ClientSideEvents Init="onInitHome" EndCallback="onInitHome" />
                     </dx:BootstrapGridView>
                     <asp:ObjectDataSource runat="server" ID="ods_opd" TypeName="VetClinic.VetManager" 
                         SelectMethod="GetOPD" />

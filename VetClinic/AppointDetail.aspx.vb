@@ -69,6 +69,25 @@ Public Class AppointDetail
         gv_detail2.DataBind()
     End Sub
 
+    Private Sub gv_detail2_RowUpdating(sender As Object, e As ASPxDataUpdatingEventArgs) Handles gv_detail2.RowUpdating
+        Dim Detail As New OPD_Detail
+        With Detail
+            .detail_id = CInt(e.Keys("detail_id"))
+            .opd_details = e.NewValues("opd_details")
+            .opd_date = e.NewValues("opd_date")
+            .opd_lab = e.NewValues("opd_lab")
+            .opd_fee = e.NewValues("opd_fee")
+            .opd_fee2 = e.NewValues("opd_fee2")
+            .opd_amount = e.NewValues("opd_amount")
+            .opd_type = "วันตรวจ"
+            .opd_bw = e.NewValues("opd_bw")
+        End With
+        vetMgr.UpdateDetail(Detail)
+        e.Cancel = True
+        gv_detail2.CancelEdit()
+        gv_detail2.DataBind()
+    End Sub
+
     Private Sub ods_detail2_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_detail2.Selecting
         e.InputParameters("opdID") = SelectedID
         e.InputParameters("type") = "วันตรวจ"

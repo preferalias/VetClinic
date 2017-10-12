@@ -32,13 +32,13 @@ Partial Public Class Management
     Protected WithEvents petName As Global.System.Web.UI.HtmlControls.HtmlInputText
     
     '''<summary>
-    '''petType control.
+    '''contact control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents petType As Global.System.Web.UI.HtmlControls.HtmlInputText
+    Protected WithEvents contact As Global.System.Web.UI.HtmlControls.HtmlInputText
     
     '''<summary>
     '''holder_name control.
@@ -56,7 +56,7 @@ Partial Public Class Management
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnbt_Search As Global.DevExpress.Web.Bootstrap.BootstrapButton
+    Protected WithEvents btnbt_Search As Global.DevExpress.Web.ASPxButton
     
     '''<summary>
     '''gv_OPD control.
