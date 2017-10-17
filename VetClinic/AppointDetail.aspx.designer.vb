@@ -23,6 +23,15 @@ Partial Public Class AppointDetail
     Protected WithEvents hdn_id As Global.DevExpress.Web.ASPxTextBox
     
     '''<summary>
+    '''link_back control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents link_back As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''header_h4 control.
     '''</summary>
     '''<remarks>

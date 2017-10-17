@@ -4,6 +4,8 @@ Imports DevExpress.Web
 Public Class _Default
     Inherits Page
 
+    Public Const PageParam As String = "Default.aspx"
+
     Public Property vetMgr As New VetManager
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
@@ -43,14 +45,14 @@ Public Class _Default
     Private Sub gv_OPD_HtmlRowPrepared(sender As Object, e As ASPxGridViewTableRowEventArgs) Handles gv_OPD.HtmlRowPrepared
         Dim btn_detail As Bootstrap.BootstrapButton = CType(gv_OPD.FindRowCellTemplateControl(e.VisibleIndex, gv_OPD.Columns(8), "btn_detail"), Bootstrap.BootstrapButton)
         If btn_detail IsNot Nothing Then
-            btn_detail.ClientSideEvents.Click = "function(s,e){window.location = 'AppointDetail.aspx?id=" & e.KeyValue & "';}"
+            btn_detail.ClientSideEvents.Click = "function(s,e){window.location = 'AppointDetail.aspx?id=" & e.KeyValue & "&back=" & PageParam & "';}"
         End If
     End Sub
 
     Private Sub gv_detail_HtmlRowPrepared(sender As Object, e As ASPxGridViewTableRowEventArgs) Handles gv_detail.HtmlRowPrepared
         Dim btn_detail As Bootstrap.BootstrapButton = CType(gv_detail.FindRowCellTemplateControl(e.VisibleIndex, gv_detail.Columns(3), "btn_detail"), Bootstrap.BootstrapButton)
         If btn_detail IsNot Nothing Then
-            btn_detail.ClientSideEvents.Click = "function(s,e){window.location = 'AppointDetail.aspx?id=" & gv_detail.GetRowValues(e.VisibleIndex, "opd_id") & "';}"
+            btn_detail.ClientSideEvents.Click = "function(s,e){window.location = 'AppointDetail.aspx?id=" & gv_detail.GetRowValues(e.VisibleIndex, "opd_id") & "&back=" & PageParam & "';}"
         End If
     End Sub
 

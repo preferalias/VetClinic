@@ -13,7 +13,7 @@ Public Class Contact
     End Sub
 
     Private Sub ods_opd_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_opd.Selecting
-        e.InputParameters("opdNum") = If(String.IsNullOrWhiteSpace(opd_num.Value), 0, CInt(opd_num.Value))
+        e.InputParameters("opdNum") = If(String.IsNullOrWhiteSpace(opd_num.Value), "", opd_num.Value.ToString)
         e.InputParameters("petName") = petName.Value
         e.InputParameters("type") = String.Empty
         e.InputParameters("contact") = contact.Value

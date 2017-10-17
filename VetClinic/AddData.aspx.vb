@@ -56,7 +56,7 @@
                 End Try
                 '.opd_lab2 =
                 .opd_fee2 = rx.Value
-                .opd_type = "วันตรวจ"
+                .opd_type = OPDTypeEnum.Diagnosis
                 Try
                     .opd_bw = If(String.IsNullOrEmpty(bw.Value), Nothing, CDbl(bw.Value))
                 Catch ex As Exception

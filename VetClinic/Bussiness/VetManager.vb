@@ -42,6 +42,32 @@ Public Class VetManager
         Return opds
     End Function
 
+    Public Function GetOPDWithoutAdmit(ByVal opdNum As String, ByVal petName As String, ByVal type As String, ByVal holderName As String, ByVal contact As String) As DataTable
+        Dim a As New DataTable
+        Using ctx = NewDataContext()
+            ctx.Connection.Open()
+            Dim q As String = "select * from opd op " &
+                              "Left Join admit ad on op.id= ad.opd_id " &
+                              "where (ad.admit_stats = 0 OR ad.admit_stats is null) and " &
+                              "(op.opd_num like '%' + @Num + '%' or @Num = '') and " &
+                              "(op.pet_name like '%' + @PetName + '%' or @PetName = '') and " &
+                              "(op.pet_type like '%' + @PetType + '%' or @PetType = '') and " &
+                              "(op.holder_name like '%' + @Holder + '%' or @Holder = '') and " &
+                              "(op.contact like '%' + @Contact + '%' or @Contact = '')"
+            Dim cmd As New SqlCommand(q, ctx.Connection)
+            With cmd
+                .Parameters.AddWithValue("@Num", opdNum)
+                .Parameters.AddWithValue("@PetName", petName)
+                .Parameters.AddWithValue("@PetType", type)
+                .Parameters.AddWithValue("@Holder", holderName)
+                .Parameters.AddWithValue("@Contact", contact)
+            End With
+            Dim da As New SqlDataAdapter(cmd)
+            da.Fill(a)
+        End Using
+        Return a
+    End Function
+
     Public Function GetOPDbyID(ByVal id As Integer) As OPD
         Dim opds As OPD
         Using ctx = NewDataContext()
@@ -50,15 +76,22 @@ Public Class VetManager
         Return opds
     End Function
 
-    Public Function GetOPD(ByVal opdNum As Integer, ByVal petName As String, ByVal type As String, ByVal holderName As String, ByVal contact As String) As IEnumerable
+    Public Function GetOPD(ByVal opdNum As String, ByVal petName As String, ByVal type As String, ByVal holderName As String, ByVal contact As String) As IEnumerable
         Dim opds As New List(Of OPD)
         Using ctx = NewDataContext()
-            opds = (From r In ctx.OPDs Where (r.opd_num = opdNum OrElse opdNum = 0) AndAlso (r.pet_name.Contains(petName) OrElse String.IsNullOrEmpty(petName)) _
+            opds = (From r In ctx.OPDs
+                    Where (r.opd_num.ToString.Contains(opdNum.ToString.Trim) OrElse String.IsNullOrEmpty(opdNum)) AndAlso (r.pet_name.Contains(petName.Trim) OrElse String.IsNullOrEmpty(petName)) _
                                            AndAlso (r.pet_type.Contains(type) OrElse String.IsNullOrEmpty(type)) _
-                                           AndAlso (r.contact.Contains(contact) OrElse String.IsNullOrEmpty(contact)) _
-                                           AndAlso (r.holder_name.Contains(holderName) OrElse String.IsNullOrEmpty(holderName)) Order By r.id Descending).ToList
+                                           AndAlso (r.contact.Contains(contact.Trim) OrElse String.IsNullOrEmpty(contact)) _
+                                           AndAlso (r.holder_name.Contains(holderName.Trim) OrElse String.IsNullOrEmpty(holderName)) Order By r.id Descending).ToList
         End Using
         Return opds
+    End Function
+
+    Public Function GetOPDNumByID(ByVal ID As Integer) As String
+        Using ctx = NewDataContext()
+            Return (From r In ctx.OPDs Where r.id = ID Select r.opd_num).SingleOrDefault
+        End Using
     End Function
 
     Public Function AddOPD(ByVal opd As OPD, ByVal detail As OPD_Detail) As Integer
@@ -205,7 +238,7 @@ Public Class VetManager
             Dim cmd As New SqlCommand(q, ctx.Connection)
             With cmd
                 .Parameters.AddWithValue("@ID", data_date.Date)
-                .Parameters.AddWithValue("@TYPE", "วันนัด")
+                .Parameters.AddWithValue("@TYPE", OPDTypeEnum.Appointment)
             End With
             Dim da As New SqlDataAdapter(cmd)
             da.Fill(a)
@@ -216,7 +249,7 @@ Public Class VetManager
     Public Function GetAppointDateList() As List(Of Date?)
         Dim list As New List(Of Date?)
         Using ctx = NewDataContext()
-            list = (From r In ctx.OPD_Details Where r.opd_type = "วันนัด" Select r.opd_date Distinct).ToList
+            list = (From r In ctx.OPD_Details Where r.opd_type = OPDTypeEnum.Appointment Select r.opd_date Distinct).ToList
         End Using
         Return list
     End Function
@@ -262,6 +295,35 @@ Public Class VetManager
             ctx.SubmitChanges()
         End Using
     End Sub
+#End Region
+
+#Region "Admit"
+
+    Public Function GetAdmitByStatus(ByVal stats As Integer) As DataTable
+        Dim a As New DataTable
+        Using ctx = NewDataContext()
+            ctx.Connection.Open()
+            Dim q As String = "select * from admit ad " &
+                              "Inner Join opd op on op.id= ad.opd_id " &
+                              "where (ad.admit_stats = @Num OR @Num = 2)"
+            Dim cmd As New SqlCommand(q, ctx.Connection)
+            With cmd
+                .Parameters.AddWithValue("@Num", stats)
+            End With
+            Dim da As New SqlDataAdapter(cmd)
+            da.Fill(a)
+        End Using
+        Return a
+    End Function
+
+    Public Sub AddAdmit(ByVal param As Admit)
+        Using ctx = NewDataContext()
+            param.admit_id = findNextID((From r In ctx.Admits Select r.admit_id).ToList)
+            ctx.Admits.InsertOnSubmit(param)
+            ctx.SubmitChanges()
+        End Using
+    End Sub
+
 #End Region
 
 End Class

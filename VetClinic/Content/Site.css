@@ -24,6 +24,12 @@ body {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .logout {
+        float:left !important;
+    }
+}
+
 .home-img {
    width:100%;
    margin-top:10px;

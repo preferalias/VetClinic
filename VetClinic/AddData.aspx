@@ -83,7 +83,9 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="address">วันที่</label>
             <div class="col-sm-2">
-                <dx:BootstrapDateEdit ID="date" runat="server" required="required"></dx:BootstrapDateEdit>
+                <dx:BootstrapDateEdit ID="date" runat="server" required="required">
+                    <ClientSideEvents Init="changeGlyph" />
+                </dx:BootstrapDateEdit>
             </div>
         </div>
         <div class="form-group">

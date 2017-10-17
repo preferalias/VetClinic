@@ -31,4 +31,14 @@
       <Association Name="OPD_OPD_Detail" Member="OPD" ThisKey="opd_id" OtherKey="id" Type="OPD" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Admit" Member="Admits">
+    <Type Name="Admit">
+      <Column Name="admit_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" IsPrimaryKey="true" />
+      <Column Name="opd_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="admit_stats" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="admit_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="discharge_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="OPD_Admit" Member="OPD" ThisKey="opd_id" OtherKey="id" Type="OPD" IsForeignKey="true" />
+    </Type>
+  </Table>
 </Database>

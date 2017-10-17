@@ -48,7 +48,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.2.Core, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v16.2.Core, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.Bootstrap.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.Resources.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EPPlus, Version=4.1.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.1\lib\net40\EPPlus.dll</HintPath>
@@ -160,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddData.aspx" />
+    <Content Include="Admit.aspx" />
     <Content Include="AppointDetail.aspx" />
     <Content Include="Appointment.aspx" />
     <Content Include="BackUp.aspx" />
@@ -231,6 +236,13 @@
     <Content Include="Bundle.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admit.aspx.designer.vb">
+      <DependentUpon>Admit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admit.aspx.vb">
+      <DependentUpon>Admit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="AppointDetail.aspx.designer.vb">
       <DependentUpon>AppointDetail.aspx</DependentUpon>
     </Compile>
@@ -274,6 +286,8 @@
       <DependentUpon>Detail.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="EnumRegistry\AdmitStatusEnum.vb" />
+    <Compile Include="EnumRegistry\OPDTypeEnum.vb" />
     <Compile Include="Upload.aspx.designer.vb">
       <DependentUpon>Upload.aspx</DependentUpon>
     </Compile>

@@ -43,6 +43,12 @@ Partial Public Class VetDataContextDataContext
     End Sub
   Partial Private Sub DeleteOPD_Detail(instance As OPD_Detail)
     End Sub
+  Partial Private Sub InsertAdmit(instance As Admit)
+    End Sub
+  Partial Private Sub UpdateAdmit(instance As Admit)
+    End Sub
+  Partial Private Sub DeleteAdmit(instance As Admit)
+    End Sub
   #End Region
 	
 	Public Sub New()
@@ -79,6 +85,12 @@ Partial Public Class VetDataContextDataContext
 	Public ReadOnly Property OPD_Details() As System.Data.Linq.Table(Of OPD_Detail)
 		Get
 			Return Me.GetTable(Of OPD_Detail)
+		End Get
+	End Property
+	
+	Public ReadOnly Property Admits() As System.Data.Linq.Table(Of Admit)
+		Get
+			Return Me.GetTable(Of Admit)
 		End Get
 	End Property
 End Class
@@ -660,6 +672,178 @@ Partial Public Class OPD_Detail
 				Else
 					Me._opd_id = CType(Nothing, Integer)
 				End If
+				Me.SendPropertyChanged("OPD")
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.Admit")>  _
+Partial Public Class Admit
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _admit_id As Integer
+	
+	Private _opd_id As Integer
+	
+	Private _admit_stats As Integer
+	
+	Private _admit_date As System.Nullable(Of Date)
+	
+	Private _discharge_date As System.Nullable(Of Date)
+	
+	Private _OPD As EntityRef(Of OPD)
+	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub Onadmit_idChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onadmit_idChanged()
+    End Sub
+    Partial Private Sub Onopd_idChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onopd_idChanged()
+    End Sub
+    Partial Private Sub Onadmit_statsChanging(value As Integer)
+    End Sub
+    Partial Private Sub Onadmit_statsChanged()
+    End Sub
+    Partial Private Sub Onadmit_dateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub Onadmit_dateChanged()
+    End Sub
+    Partial Private Sub Ondischarge_dateChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub Ondischarge_dateChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._OPD = CType(Nothing, EntityRef(Of OPD))
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_admit_id", DbType:="Int NOT NULL", IsPrimaryKey:=true)>  _
+	Public Property admit_id() As Integer
+		Get
+			Return Me._admit_id
+		End Get
+		Set
+			If ((Me._admit_id = value)  _
+						= false) Then
+				Me.Onadmit_idChanging(value)
+				Me.SendPropertyChanging
+				Me._admit_id = value
+				Me.SendPropertyChanged("admit_id")
+				Me.Onadmit_idChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_id", DbType:="Int NOT NULL")>  _
+	Public Property opd_id() As Integer
+		Get
+			Return Me._opd_id
+		End Get
+		Set
+			If ((Me._opd_id = value)  _
+						= false) Then
+				If Me._OPD.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
+				Me.Onopd_idChanging(value)
+				Me.SendPropertyChanging
+				Me._opd_id = value
+				Me.SendPropertyChanged("opd_id")
+				Me.Onopd_idChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_admit_stats", DbType:="Int NOT NULL")>  _
+	Public Property admit_stats() As Integer
+		Get
+			Return Me._admit_stats
+		End Get
+		Set
+			If ((Me._admit_stats = value)  _
+						= false) Then
+				Me.Onadmit_statsChanging(value)
+				Me.SendPropertyChanging
+				Me._admit_stats = value
+				Me.SendPropertyChanged("admit_stats")
+				Me.Onadmit_statsChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_admit_date", DbType:="Date")>  _
+	Public Property admit_date() As System.Nullable(Of Date)
+		Get
+			Return Me._admit_date
+		End Get
+		Set
+			If (Me._admit_date.Equals(value) = false) Then
+				Me.Onadmit_dateChanging(value)
+				Me.SendPropertyChanging
+				Me._admit_date = value
+				Me.SendPropertyChanged("admit_date")
+				Me.Onadmit_dateChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_discharge_date", DbType:="Date")>  _
+	Public Property discharge_date() As System.Nullable(Of Date)
+		Get
+			Return Me._discharge_date
+		End Get
+		Set
+			If (Me._discharge_date.Equals(value) = false) Then
+				Me.Ondischarge_dateChanging(value)
+				Me.SendPropertyChanging
+				Me._discharge_date = value
+				Me.SendPropertyChanged("discharge_date")
+				Me.Ondischarge_dateChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="OPD_Admit", Storage:="_OPD", ThisKey:="opd_id", OtherKey:="id", IsForeignKey:=true)>  _
+	Public Property OPD() As OPD
+		Get
+			Return Me._OPD.Entity
+		End Get
+		Set
+			If (Object.Equals(Me._OPD.Entity, value) = false) Then
+				Me.SendPropertyChanging
+				Me._OPD.Entity = value
 				Me.SendPropertyChanged("OPD")
 			End If
 		End Set

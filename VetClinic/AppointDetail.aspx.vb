@@ -19,6 +19,12 @@ Public Class AppointDetail
         End If
         If Not IsPostBack Then
             hdn_id.Text = Request("id")
+            If Not String.IsNullOrEmpty(Request("back")) Then
+                link_back.Attributes.Add("href", Request("back"))
+            Else
+                link_back.Attributes.Add("href", "Search.aspx")
+            End If
+
         End If
         Dim opd As OPD = vetMgr.GetOPDbyID(SelectedID)
         If opd IsNot Nothing Then
@@ -43,7 +49,7 @@ Public Class AppointDetail
 
     Private Sub ods_detail_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_detail.Selecting
         e.InputParameters("opdID") = SelectedID
-        e.InputParameters("type") = "วันนัด"
+        e.InputParameters("type") = OPDTypeEnum.Appointment
     End Sub
 
     Private Sub ods_detail_ObjectCreating(sender As Object, e As ObjectDataSourceEventArgs) Handles ods_detail.ObjectCreating,
@@ -60,7 +66,7 @@ Public Class AppointDetail
             .opd_fee = e.NewValues("opd_fee")
             .opd_fee2 = e.NewValues("opd_fee2")
             .opd_amount = e.NewValues("opd_amount")
-            .opd_type = "วันตรวจ"
+            .opd_type = OPDTypeEnum.Diagnosis
             .opd_bw = e.NewValues("opd_bw")
         End With
         vetMgr.InsertDetail(detail, SelectedID)
@@ -79,7 +85,7 @@ Public Class AppointDetail
             .opd_fee = e.NewValues("opd_fee")
             .opd_fee2 = e.NewValues("opd_fee2")
             .opd_amount = e.NewValues("opd_amount")
-            .opd_type = "วันตรวจ"
+            .opd_type = OPDTypeEnum.Diagnosis
             .opd_bw = e.NewValues("opd_bw")
         End With
         vetMgr.UpdateDetail(Detail)
@@ -90,7 +96,7 @@ Public Class AppointDetail
 
     Private Sub ods_detail2_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_detail2.Selecting
         e.InputParameters("opdID") = SelectedID
-        e.InputParameters("type") = "วันตรวจ"
+        e.InputParameters("type") = OPDTypeEnum.Diagnosis
     End Sub
 
     Private Sub gv_detail_RowInserting(sender As Object, e As ASPxDataInsertingEventArgs) Handles gv_detail.RowInserting
@@ -98,7 +104,7 @@ Public Class AppointDetail
         With detail
             .opd_details = e.NewValues("opd_details")
             .opd_date = e.NewValues("opd_date")
-            .opd_type = "วันนัด"
+            .opd_type = OPDTypeEnum.Appointment
         End With
         vetMgr.InsertDetail(detail, SelectedID)
         e.Cancel = True

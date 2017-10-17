@@ -93,8 +93,8 @@ Public Class Detail
         If (e.Column.FieldName = "opd_type") Then
             Dim cbb_type As DevExpress.Web.Bootstrap.BootstrapComboBox = CType(e.Editor, DevExpress.Web.Bootstrap.BootstrapComboBox)
             If cbb_type IsNot Nothing Then
-                cbb_type.Items.Add("วันตรวจ", "วันตรวจ")
-                cbb_type.Items.Add("วันนัด", "วันนัด")
+                cbb_type.Items.Add(OPDTypeEnum.Diagnosis, OPDTypeEnum.Diagnosis)
+                cbb_type.Items.Add(OPDTypeEnum.Appointment, OPDTypeEnum.Appointment)
             End If
         End If
         If (e.Column.FieldName = "opd_num") Then

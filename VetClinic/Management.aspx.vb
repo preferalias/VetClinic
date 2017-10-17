@@ -8,12 +8,13 @@ Public Class Management
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
     End Sub
+
     Private Sub ods_opd_ObjectCreating(sender As Object, e As ObjectDataSourceEventArgs) Handles ods_opd.ObjectCreating
         e.ObjectInstance = vetMgr
     End Sub
 
     Private Sub ods_opd_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_opd.Selecting
-        e.InputParameters("opdNum") = If(String.IsNullOrWhiteSpace(opd_num.Value), 0, CInt(opd_num.Value))
+        e.InputParameters("opdNum") = If(String.IsNullOrWhiteSpace(opd_num.Value), "", opd_num.Value.ToString)
         e.InputParameters("petName") = petName.Value
         e.InputParameters("type") = String.Empty
         e.InputParameters("contact") = Contact.Value

@@ -5,11 +5,16 @@
 <%@ Register Assembly="DevExpress.Web.v16.2, Version=16.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript">
+        function ChangeTabColor() {
+            $(".nav-tabs > li > a:has(span:contains('วันนัด'))").css("background-color", "lavender");
+        }
+    </script>
     <dx:ASPxTextBox runat="server" ID="hdn_id" ClientVisible="false"></dx:ASPxTextBox>
     <div class="row" style="padding-top:20px;">
         <div class="col-sm-2">
-            <a href="Search.aspx" class="btn btn-default">
-                <span class="glyphicon glyphicon-arrow-left"></span>  Back to search
+            <a runat="server" id="link_back" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span>  Back to page
             </a>
         </div>
     </div>
@@ -19,6 +24,7 @@
     <p runat="server" id="para2"></p>
     <hr />
     <dx:BootstrapPageControl ID="BootstrapPageControl1" runat="server">
+        <ClientSideEvents Init="ChangeTabColor" />
         <TabPages>
             <dx:BootstrapTabPage Text="วันตรวจ">
                 <ContentCollection>
@@ -30,7 +36,7 @@
                                 EditForm-Height="370px" EditForm-Width="800px" ></SettingsPopup>
                             <SettingsDataSecurity AllowEdit="true" AllowDelete="true" AllowInsert="true" />
                             <Columns>
-                                <dx:BootstrapGridViewDataDateColumn EditFormSettings-VisibleIndex="1" PropertiesDateEdit-UseMaskBehavior="true" Caption="Date" FieldName="opd_date"  />
+                                <dx:BootstrapGridViewDataDateColumn PropertiesDateEdit-ClientSideEvents-Init="changeGlyph" EditFormSettings-VisibleIndex="1" Caption="Date" FieldName="opd_date"  />
                                 <dx:BootstrapGridViewDataMemoColumn EditFormSettings-VisibleIndex="3" PropertiesMemoEdit-Rows="4" EditFormSettings-Caption="CC" Caption="Client Complain" FieldName="opd_details" />
                                 <dx:BootstrapGridViewDataTextColumn EditFormSettings-VisibleIndex="2" Caption="BW(Kg)" FieldName="opd_bw" />
                                 <dx:BootstrapGridViewDataMemoColumn PropertiesMemoEdit-Rows="4" Caption="PE + Lab" FieldName="opd_lab"/>
@@ -56,7 +62,7 @@
                             <SettingsDataSecurity AllowEdit="true" AllowInsert="true" />
                             <Columns>
                                 <dx:BootstrapGridViewDataTextColumn Caption="id" FieldName="opd_id"  Visible="false"/>
-                                <dx:BootstrapGridViewDataDateColumn Caption="Date" FieldName="opd_date" />
+                                <dx:BootstrapGridViewDataDateColumn PropertiesDateEdit-ClientSideEvents-Init="changeGlyph" Caption="Date" FieldName="opd_date" />
                                 <dx:BootstrapGridViewDataTextColumn Caption="Details" FieldName="opd_details"/>
                                 <dx:BootstrapGridViewCommandColumn ShowNewButtonInHeader="True">
                                 </dx:BootstrapGridViewCommandColumn>
