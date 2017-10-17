@@ -305,7 +305,8 @@ Public Class VetManager
             ctx.Connection.Open()
             Dim q As String = "select * from admit ad " &
                               "Inner Join opd op on op.id= ad.opd_id " &
-                              "where (ad.admit_stats = @Num OR @Num = 2)"
+                              "where (ad.admit_stats = @Num OR @Num = 2) " &
+                              "order by ad.admit_id desc"
             Dim cmd As New SqlCommand(q, ctx.Connection)
             With cmd
                 .Parameters.AddWithValue("@Num", stats)
@@ -324,6 +325,15 @@ Public Class VetManager
         End Using
     End Sub
 
+    Public Sub DischargedAdmit(ByVal id As Integer, ByVal dis_date As Date)
+        Using ctx = NewDataContext()
+            Dim orgAdmit As Admit = (From r In ctx.Admits Where r.opd_id = id).SingleOrDefault
+            If orgAdmit IsNot Nothing Then
+                orgAdmit.admit_stats = AdmitStatusEnum.Discharged
+            End If
+            ctx.SubmitChanges()
+        End Using
+    End Sub
 #End Region
 
 End Class

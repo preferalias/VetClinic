@@ -35,7 +35,7 @@
         }
     </script>
    <dx:ASPxTextBox runat="server" ClientInstanceName="hdn_addID" ID="hdn_addID" ClientVisible="false"></dx:ASPxTextBox>
-    <dx:ASPxTextBox runat="server" ClientInstanceName="hdn_opdnum" ID="hdn_opdnum" ClientVisible="false"></dx:ASPxTextBox>
+   <dx:ASPxTextBox runat="server" ClientInstanceName="hdn_opdnum" ID="hdn_opdnum" ClientVisible="false"></dx:ASPxTextBox>
    <h2>Admit</h2>
    <hr />
    <button type="button" id="btn_showPanel" class="btn btn-success" onclick="showPanel()" ><span class="glyphicon glyphicon-plus-sign"></span> Add OPD</button>
@@ -108,6 +108,7 @@
                     <dx:BootstrapGridViewDataColumn Caption="Details">
                         <DataItemTemplate>
                             <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_view" runat="server" Text="View" AutoPostBack="false" ToolTip="View Detail" />
+                            <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_del" runat="server" Text="Discharge" AutoPostBack="false" ToolTip="Discharged" />
                         </DataItemTemplate>
                     </dx:BootstrapGridViewDataColumn>
                 </Columns>
@@ -148,6 +149,43 @@
                             </dx:BootstrapButton>
                         <dx:BootstrapButton runat="server" ID="btn_pup_cancel" Text="Cancel" AutoPostBack="false">
                             <ClientSideEvents Click="function(s,e){popup_add.Hide();}" />
+                        </dx:BootstrapButton>
+                        </div>
+                    </div>
+                </div>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:BootstrapPopupControl>
+    <dx:BootstrapPopupControl runat="server" ID="popup_discharged" ClientInstanceName="popup_discharged" AllowDragging="true" ShowCloseButton="false"
+        PopupHorizontalAlign="WindowCenter" CssClasses-Header="control-label" PopupVerticalAlign="WindowCenter" Width="200px" >
+        <ContentCollection>
+            <dx:PopupControlContentControl>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <label id="Label1" runat="server">กรอกวันที่ออก</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <dx:BootstrapDateEdit runat="server" ID="dedit_pup_delete" ClientInstanceName="dedit_del">
+                            <ClientSideEvents Init="changeGlyph" />
+                        </dx:BootstrapDateEdit>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:15px;">
+                    <div class="col-sm-12">
+                        <div class="pull-right">
+                            <dx:BootstrapButton runat="server" ID="btn_pup_del" Text="Disc." AutoPostBack="false">
+                                <ClientSideEvents Click="function(s,e){if (dedit_del.GetValue() == null) {
+		                                                    alert('Please fill admit date.');
+	                                                    } 
+	                                                    else { 
+		                                                    CIN_gv_admit.PerformCallback('Del');
+                                                            popup_discharged.Hide();    
+	                                                    }}" />
+                            </dx:BootstrapButton>
+                        <dx:BootstrapButton runat="server" ID="btn_pup_del_cancel" Text="Cancel" AutoPostBack="false">
+                            <ClientSideEvents Click="function(s,e){popup_discharged.Hide();}" />
                         </dx:BootstrapButton>
                         </div>
                     </div>

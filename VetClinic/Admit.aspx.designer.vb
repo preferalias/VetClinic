@@ -156,4 +156,49 @@ Partial Public Class Admit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btn_pup_cancel As Global.DevExpress.Web.Bootstrap.BootstrapButton
+    
+    '''<summary>
+    '''popup_discharged control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents popup_discharged As Global.DevExpress.Web.Bootstrap.BootstrapPopupControl
+    
+    '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''dedit_pup_delete control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dedit_pup_delete As Global.DevExpress.Web.Bootstrap.BootstrapDateEdit
+    
+    '''<summary>
+    '''btn_pup_del control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btn_pup_del As Global.DevExpress.Web.Bootstrap.BootstrapButton
+    
+    '''<summary>
+    '''btn_pup_del_cancel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btn_pup_del_cancel As Global.DevExpress.Web.Bootstrap.BootstrapButton
 End Class

@@ -34,13 +34,18 @@ Public Class Admit
 
     Private Sub gv_admit_HtmlRowPrepared(sender As Object, e As ASPxGridViewTableRowEventArgs) Handles gv_admit.HtmlRowPrepared
         Dim btn_detail As Bootstrap.BootstrapButton = CType(gv_admit.FindRowCellTemplateControl(e.VisibleIndex, gv_admit.Columns(6), "btn_view"), Bootstrap.BootstrapButton)
+        Dim btn_del As Bootstrap.BootstrapButton = CType(gv_admit.FindRowCellTemplateControl(e.VisibleIndex, gv_admit.Columns(6), "btn_del"), Bootstrap.BootstrapButton)
         If btn_detail IsNot Nothing Then
             btn_detail.ClientSideEvents.Click = "function(s,e){window.location = 'AppointDetail.aspx?id=" & e.KeyValue & "&back=Admit.aspx';}"
+        End If
+        If btn_del IsNot Nothing Then
+            btn_del.ClientSideEvents.Click = "function(s,e){hdn_addID.SetText('" & e.KeyValue & "');" &
+            "popup_discharged.SetHeaderText('" & "OPD : " & vetMgr.GetOPDNumByID(CInt(e.KeyValue)) & "');popup_discharged.Show();}"
         End If
     End Sub
 
     Private Sub ods_admit_Selecting(sender As Object, e As ObjectDataSourceSelectingEventArgs) Handles ods_admit.Selecting
-        e.InputParameters("stats") = 2
+        e.InputParameters("stats") = AdmitStatusEnum.Admitted
     End Sub
 
     Private Sub gv_admit_CustomCallback(sender As Object, e As ASPxGridViewCustomCallbackEventArgs) Handles gv_admit.CustomCallback
@@ -52,7 +57,10 @@ Public Class Admit
                 .admit_stats = AdmitStatusEnum.Admitted
             End With
             vetMgr.AddAdmit(newAdmit)
-            gv_admit.DataBind()
         End If
+        If e.Parameters = "Del" Then
+            vetMgr.DischargedAdmit(CInt(hdn_addID.Text), dedit_pup_delete.Value)
+        End If
+        gv_admit.DataBind()
     End Sub
 End Class
