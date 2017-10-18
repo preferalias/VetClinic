@@ -92,32 +92,81 @@
        </div>
     </div>
     <hr />
-    <h4>Admitted List</h4>
-    <div class="row">
-        <div class="col-sm-12">
-            <dx:BootstrapGridView runat="server" ID="gv_admit" 
-                DataSourceID="ods_admit" KeyFieldName="opd_id" ClientInstanceName="CIN_gv_admit" >
-                <SettingsPager PageSize="10"></SettingsPager>
-                <Columns>
-                    <dx:BootstrapGridViewDataDateColumn Caption="Admit Date" FieldName="admit_date" />
-                    <dx:BootstrapGridViewDataTextColumn Caption="OPD" FieldName="opd_num"/>
-                    <dx:BootstrapGridViewDataTextColumn Caption="Pet Name" FieldName="pet_name"/>
-                    <dx:BootstrapGridViewDataTextColumn Caption="Type" FieldName="pet_type"/>
-                    <dx:BootstrapGridViewDataTextColumn Caption="Holder Name" FieldName="holder_name"/>
-                    <dx:BootstrapGridViewDataTextColumn Caption="Contact" FieldName="contact"/>
-                    <dx:BootstrapGridViewDataColumn Caption="Details">
-                        <DataItemTemplate>
-                            <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_view" runat="server" Text="View" AutoPostBack="false" ToolTip="View Detail" />
-                            <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_del" runat="server" Text="Discharge" AutoPostBack="false" ToolTip="Discharged" />
-                        </DataItemTemplate>
-                    </dx:BootstrapGridViewDataColumn>
-                </Columns>
-                <ClientSideEvents Init="onInitAdmit" EndCallback="onInitAdmit" />
-            </dx:BootstrapGridView>
-            <asp:ObjectDataSource runat="server" ID="ods_admit" TypeName="VetClinic.VetManager" 
-                SelectMethod="GetAdmitByStatus" />
-        </div>
-    </div>
+    <h4 style="margin-bottom:30px;">Admitted List</h4>
+    
+    <dx:BootstrapPageControl ID="BootstrapPageControl1" runat="server">
+        <%--<ClientSideEvents Init="ChangeTabColor" />--%>
+        <TabPages>
+            <dx:BootstrapTabPage Text="Admit">
+                <ContentCollection>
+                    <dx:ContentControl>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <dx:BootstrapGridView runat="server" ID="gv_admit" 
+                                    DataSourceID="ods_admit" KeyFieldName="opd_id;admit_id" ClientInstanceName="CIN_gv_admit" >
+                                    <SettingsEditing Mode="Inline"></SettingsEditing>
+                                    <SettingsBehavior ConfirmDelete="true" />
+                                    <SettingsPager PageSize="10"></SettingsPager>
+                                    <Columns>
+                                        <dx:BootstrapGridViewDataDateColumn PropertiesDateEdit-AllowNull="false" Caption="Admit Date" FieldName="admit_date" />
+                                        <dx:BootstrapGridViewDataTextColumn Caption="OPD" FieldName="opd_num"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Pet Name" FieldName="pet_name"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Type" FieldName="pet_type"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Holder Name" FieldName="holder_name"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Contact" FieldName="contact"/>
+                                        <dx:BootstrapGridViewDataColumn Caption="Details">
+                                            <DataItemTemplate>
+                                                <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_view" runat="server" Text="View" AutoPostBack="false" ToolTip="View Detail" />
+                                                <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_del" runat="server" Text="Discharge" AutoPostBack="false" ToolTip="Discharged" />
+                                            </DataItemTemplate>
+                                        </dx:BootstrapGridViewDataColumn>
+                                        <dx:BootstrapGridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true"> </dx:BootstrapGridViewCommandColumn>
+                                    </Columns>
+                                    <ClientSideEvents Init="onInitAdmit" EndCallback="onInitAdmit" />
+                                </dx:BootstrapGridView>
+                                <asp:ObjectDataSource runat="server" ID="ods_admit" TypeName="VetClinic.VetManager" 
+                                    SelectMethod="GetAdmitByStatus" />
+                            </div>
+                        </div>
+                    </dx:ContentControl>
+                </ContentCollection>
+            </dx:BootstrapTabPage>
+            <dx:BootstrapTabPage Text="History">
+                <ContentCollection>
+                    <dx:ContentControl>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <dx:BootstrapGridView runat="server" ID="gv_dis" 
+                                    DataSourceID="ods_dis" KeyFieldName="admit_id" ClientInstanceName="CIN_gv_dis" >
+                                    <SettingsPager PageSize="10"></SettingsPager>
+                                    <Columns>
+                                        <dx:BootstrapGridViewDataDateColumn Caption="Admit Date" FieldName="admit_date" />
+                                        <dx:BootstrapGridViewDataDateColumn Caption="Discharged Date" FieldName="discharge_date" />
+                                        <dx:BootstrapGridViewDataTextColumn Caption="OPD" FieldName="opd_num"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Pet Name" FieldName="pet_name"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Type" FieldName="pet_type"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Holder Name" FieldName="holder_name"/>
+                                        <dx:BootstrapGridViewDataTextColumn Caption="Contact" FieldName="contact"/>
+                                       <%-- <dx:BootstrapGridViewDataColumn Caption="Details">
+                                            <DataItemTemplate>
+                                                <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_view" runat="server" Text="View" AutoPostBack="false" ToolTip="View Detail" />
+                                                <dx:BootstrapButton CssClasses-Button="btn btn-link" ID="btn_del" runat="server" Text="Discharge" AutoPostBack="false" ToolTip="Discharged" />
+                                            </DataItemTemplate>
+                                        </dx:BootstrapGridViewDataColumn>--%>
+                                    </Columns>
+                                    <ClientSideEvents Init="onInitAdmit" EndCallback="onInitAdmit" />
+                                </dx:BootstrapGridView>
+                                <asp:ObjectDataSource runat="server" ID="ods_dis" TypeName="VetClinic.VetManager" 
+                                    SelectMethod="GetAdmitByStatus" />
+                            </div>
+                        </div>
+                    </dx:ContentControl>
+                </ContentCollection>
+            </dx:BootstrapTabPage>
+        </TabPages>
+    </dx:BootstrapPageControl>
+    
+    
     <dx:BootstrapPopupControl runat="server" ID="popup_add" ClientInstanceName="popup_add" AllowDragging="true" ShowCloseButton="false"
         PopupHorizontalAlign="WindowCenter" CssClasses-Header="control-label" PopupVerticalAlign="WindowCenter" Width="200px" >
         <ContentCollection>
@@ -144,7 +193,8 @@
 	                                                    else { 
 		                                                    CIN_gv_admit.PerformCallback('New');
                                                             popup_add.Hide();
-                                                            $('#toggle-panel').slideUp(500, function(){gv_OPD.SetVisible(false);});     
+                                                            $('#toggle-panel').slideUp(500, function(){gv_OPD.SetVisible(false);
+                                                            $('#btn_showPanel').find('span').toggleClass('glyphicon-plus-sign').toggleClass('glyphicon-minus-sign');});     
 	                                                    }}" />
                             </dx:BootstrapButton>
                         <dx:BootstrapButton runat="server" ID="btn_pup_cancel" Text="Cancel" AutoPostBack="false">

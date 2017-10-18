@@ -95,6 +95,15 @@ Partial Public Class Admit
     Protected WithEvents ods_opd As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
+    '''BootstrapPageControl1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents BootstrapPageControl1 As Global.DevExpress.Web.Bootstrap.BootstrapPageControl
+    
+    '''<summary>
     '''gv_admit control.
     '''</summary>
     '''<remarks>
@@ -111,6 +120,24 @@ Partial Public Class Admit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ods_admit As Global.System.Web.UI.WebControls.ObjectDataSource
+    
+    '''<summary>
+    '''gv_dis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents gv_dis As Global.DevExpress.Web.Bootstrap.BootstrapGridView
+    
+    '''<summary>
+    '''ods_dis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ods_dis As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
     '''popup_add control.

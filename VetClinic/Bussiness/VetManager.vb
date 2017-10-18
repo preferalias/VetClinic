@@ -325,11 +325,27 @@ Public Class VetManager
         End Using
     End Sub
 
+    Public Sub UpdateDateAdmit(ByVal id As Integer, ByVal param As Date)
+        Using ctx = NewDataContext()
+            Dim orgAdmit As Admit = (From r In ctx.Admits Where r.admit_id = id).Single
+            orgAdmit.admit_date = param
+            ctx.SubmitChanges()
+        End Using
+    End Sub
+
+    Public Sub DeleteAdmit(ByVal id As Integer)
+        Using ctx = NewDataContext()
+            Dim orgAdmit As Admit = (From r In ctx.Admits Where r.admit_id = id).Single
+            ctx.Admits.DeleteOnSubmit(orgAdmit)
+            ctx.SubmitChanges()
+        End Using
+    End Sub
     Public Sub DischargedAdmit(ByVal id As Integer, ByVal dis_date As Date)
         Using ctx = NewDataContext()
-            Dim orgAdmit As Admit = (From r In ctx.Admits Where r.opd_id = id).SingleOrDefault
+            Dim orgAdmit As Admit = (From r In ctx.Admits Where r.admit_id = id).SingleOrDefault
             If orgAdmit IsNot Nothing Then
                 orgAdmit.admit_stats = AdmitStatusEnum.Discharged
+                orgAdmit.discharge_date = dis_date
             End If
             ctx.SubmitChanges()
         End Using
