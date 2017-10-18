@@ -95,4 +95,8 @@ Public Class Admit
         gv_admit.CancelEdit()
         gv_admit.DataBind()
     End Sub
+
+    Private Sub gv_dis_CustomCallback(sender As Object, e As ASPxGridViewCustomCallbackEventArgs) Handles gv_dis.CustomCallback
+        gv_dis.DataBind()
+    End Sub
 End Class

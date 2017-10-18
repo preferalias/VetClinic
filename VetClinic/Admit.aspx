@@ -231,6 +231,7 @@
 	                                                    } 
 	                                                    else { 
 		                                                    CIN_gv_admit.PerformCallback('Del');
+                                                            CIN_gv_dis.PerformCallback();
                                                             popup_discharged.Hide();    
 	                                                    }}" />
                             </dx:BootstrapButton>
