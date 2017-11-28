@@ -139,4 +139,8 @@ Public Class Detail
         End Try
     End Sub
 
+    Private Sub btn_delete_opd_Click(sender As Object, e As EventArgs) Handles btn_delete_opd.Click
+        vetMgr.DeleteOPD(SelectedID)
+        Response.Redirect("Management.aspx")
+    End Sub
 End Class

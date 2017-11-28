@@ -23,6 +23,15 @@ Partial Public Class Detail
     Protected WithEvents hdn_id As Global.DevExpress.Web.ASPxTextBox
     
     '''<summary>
+    '''btn_delete_opd control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btn_delete_opd As Global.DevExpress.Web.Bootstrap.BootstrapButton
+    
+    '''<summary>
     '''opd_num control.
     '''</summary>
     '''<remarks>

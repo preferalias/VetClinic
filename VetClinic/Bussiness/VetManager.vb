@@ -196,6 +196,20 @@ Public Class VetManager
         Return errMsg
     End Function
 
+    Public Sub DeleteOPD(ByVal opdID As Integer)
+        Using ctx = NewDataContext()
+            Dim origOPD As OPD = (From r In ctx.OPDs Where r.id = opdID).SingleOrDefault
+            If origOPD IsNot Nothing Then
+                Dim DeleteAdmits As List(Of Admit) = (From r In ctx.Admits Where r.opd_id = opdID).ToList
+                Dim DeleteDetail As List(Of OPD_Detail) = (From r In ctx.OPD_Details Where r.opd_id = opdID).ToList
+                ctx.Admits.DeleteAllOnSubmit(DeleteAdmits)
+                ctx.OPD_Details.DeleteAllOnSubmit(DeleteDetail)
+                ctx.SubmitChanges()
+            End If
+            ctx.OPDs.DeleteOnSubmit(origOPD)
+            ctx.SubmitChanges()
+        End Using
+    End Sub
 #End Region
 
 #Region "OPD Detail"

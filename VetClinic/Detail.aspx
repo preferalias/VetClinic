@@ -35,6 +35,13 @@
                 return false;
             return true;
         }
+        function confirmDelete(s,e) {
+            if (confirm('Are you sure to delete this OPD ?')) {
+                e.processOnServer = true;
+            }
+            else { e.processOnServer = false; }
+        }
+
     </script>
     <dx:ASPxTextBox runat="server" ID="hdn_id" ClientVisible="false"></dx:ASPxTextBox>
     <div class="row" style="padding-top:20px;">
@@ -42,6 +49,14 @@
             <a href="Management.aspx" class="btn btn-default">
                 <span class="glyphicon glyphicon-arrow-left"></span>  Back to Editing
             </a>
+        </div>
+        <div class="col-sm-2 pull-right">
+            <dx:BootstrapButton runat="server" ID="btn_delete_opd" AutoPostBack="true" CssClasses-Button="btn btn-danger" Text="Delete OPD" CssClasses-Icon="glyphicon glyphicon-trash">
+                <ClientSideEvents Click="confirmDelete" />
+            </dx:BootstrapButton>
+          <%--  <a href="#" class="btn btn-danger" id="deleteOpd" onclick="confirmDelete">
+                <span class="glyphicon glyphicon-trash"></span>  Delete OPD
+            </a>--%>
         </div>
     </div>
     <hr />
