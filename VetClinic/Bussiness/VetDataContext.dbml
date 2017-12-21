@@ -20,12 +20,12 @@
     <Type Name="OPD_Detail">
       <Column Name="opd_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="opd_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="opd_details" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="opd_bw" Type="System.Double" DbType="Float" CanBeNull="true"/>
-      <Column Name="opd_lab" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
-      <Column Name="opd_fee2" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_details" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="opd_bw" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="opd_lab" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="opd_fee2" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="opd_type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="opd_fee" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="opd_fee" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="opd_amount" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="detail_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="OPD_OPD_Detail" Member="OPD" ThisKey="opd_id" OtherKey="id" Type="OPD" IsForeignKey="true" />
@@ -33,7 +33,7 @@
   </Table>
   <Table Name="dbo.Admit" Member="Admits">
     <Type Name="Admit">
-      <Column Name="admit_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" IsPrimaryKey="true" />
+      <Column Name="admit_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="opd_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="admit_stats" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="admit_date" Type="System.DateTime" DbType="Date" CanBeNull="true" />

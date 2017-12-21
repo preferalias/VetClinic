@@ -520,7 +520,7 @@ Partial Public Class OPD_Detail
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_details", DbType:="VarChar(200)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_details", DbType:="Text", UpdateCheck:=UpdateCheck.Never)>  _
 	Public Property opd_details() As String
 		Get
 			Return Me._opd_details
@@ -552,7 +552,7 @@ Partial Public Class OPD_Detail
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_lab", DbType:="VarChar(200)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_lab", DbType:="Text", UpdateCheck:=UpdateCheck.Never)>  _
 	Public Property opd_lab() As String
 		Get
 			Return Me._opd_lab
@@ -568,7 +568,7 @@ Partial Public Class OPD_Detail
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_fee2", DbType:="VarChar(200)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_fee2", DbType:="Text", UpdateCheck:=UpdateCheck.Never)>  _
 	Public Property opd_fee2() As String
 		Get
 			Return Me._opd_fee2
@@ -600,7 +600,7 @@ Partial Public Class OPD_Detail
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_fee", DbType:="VarChar(200)")>  _
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_opd_fee", DbType:="Text", UpdateCheck:=UpdateCheck.Never)>  _
 	Public Property opd_fee() As String
 		Get
 			Return Me._opd_fee
